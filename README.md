@@ -2,13 +2,13 @@
 
 Logos for [Sweetspot Tools](https://github.com/sweetspot-tools) and its products.
 
-| Fairy Tapes |
-|---|
-| <img src="fairy-tapes/fairy-tapes-logo-dark.svg" width="320" alt="Fairy Tapes"> |
+| Sweetspot Tools | Fairy Tapes |
+|---|---|
+| <img src="sweetspot-tools/sweetspot-tools-logo-dark.svg" width="320" alt="Sweetspot Tools"> | <img src="fairy-tapes/fairy-tapes-logo-dark.svg" width="320" alt="Fairy Tapes"> |
 
 ## Folders
 
-- `sweetspot-tools/`: the organization logo (not drawn yet).
+- `sweetspot-tools/`: the organization logo. See [sweetspot-tools/README.md](sweetspot-tools/README.md).
 - `fairy-tapes/`: the Fairy Tapes suite of audio plug-ins. See [fairy-tapes/README.md](fairy-tapes/README.md).
 
 Each folder holds the generated files and, in `tools/`, the script that generates them.
