@@ -19,7 +19,9 @@ The logos are licensed under [CC BY-ND 4.0](LICENSE) (Creative Commons Attributi
 
 You may share them, unmodified, for any purpose, including commercial, with attribution. You may not distribute modified versions.
 
-The generator scripts in the `tools/` folders are part of this repository and under the same license.
+The generator scripts in the `tools/` folders are part of this repository and under the same license, with one
+exception: `fairy-tapes/tools/rocksalt_glyphs.json` holds outlines of the Rock Salt font and stays under its Apache
+License 2.0 (text in `fairy-tapes/tools/LICENSE-RockSalt-Apache-2.0.txt`).
 
 ## Names and trademarks
 

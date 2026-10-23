@@ -28,12 +28,29 @@ def test_svg_is_paths_only(out, name):
     assert not tags & {"text", "image", "style", "font"}
 
 
-def test_colour_variants(out):
-    read = lambda n: (out / n).read_text().lower()
-    assert gen_logo.AMBER in read("fairy-tapes-logo-dark.svg") and gen_logo.GREY in read("fairy-tapes-logo-dark.svg")
-    assert gen_logo.AMBER_LIGHT in read("fairy-tapes-logo-light.svg") and gen_logo.BG in read("fairy-tapes-logo-light.svg")
-    for n in ("fairy-tapes-logo-mono-black.svg", "fairy-tapes-mark-mono-black.svg"):
-        assert gen_logo.AMBER not in read(n) and gen_logo.GREY not in read(n)
+def colours(path):
+    return {c.lower() for el in ET.parse(path).getroot().iter() for c in (el.get("fill"), el.get("stroke"))
+            if c and c.startswith("#")}
+
+
+@pytest.mark.parametrize("kind", ["logo", "mark"])
+def test_colour_variants(out, kind):
+    dark, light = colours(out / f"fairy-tapes-{kind}-dark.svg"), colours(out / f"fairy-tapes-{kind}-light.svg")
+    assert {gen_logo.AMBER, gen_logo.GREY, gen_logo.TAPE, gen_logo.INK} <= dark
+    assert {gen_logo.AMBER_LIGHT, gen_logo.BG, gen_logo.TAPE, gen_logo.TAPE_EDGE} <= light
+    assert colours(out / f"fairy-tapes-{kind}-mono-black.svg") == {gen_logo.BLACK}
+    assert colours(out / f"fairy-tapes-{kind}-mono-white.svg") == {gen_logo.WHITE}
+
+
+def test_label_glyphs_cover_the_label():
+    assert set(gen_logo.LABEL) <= set(gen_logo.load_label_glyphs()["glyphs"])
+
+
+def test_label_is_on_the_mark(out):
+    # the hand-written label is the only paths drawn in ink on the dark mark
+    root = ET.parse(out / "fairy-tapes-mark-dark.svg").getroot()
+    ink = [el for el in root.iter(f"{NS}path") if (el.get("fill") or "").lower() == gen_logo.INK]
+    assert ink and all(len(el.get("d")) > 500 for el in ink)
 
 
 def test_favicon_ico_sizes(out):
